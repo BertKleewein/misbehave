@@ -12,7 +12,7 @@ const Protocol = require("azure-iot-device-mqtt").Mqtt;
 // const Protocol = require('azure-iot-device-mqtt').MqttWs;
 const Client = require("azure-iot-device").Client;
 const Message = require("azure-iot-device").Message;
-const sinon = require("sinon");
+const FakeTimers = require("@sinonjs/fake-timers");
 
 function generateMessage() {
   const windSpeed = 10 + Math.random() * 4; // range: [10, 14]
@@ -43,7 +43,11 @@ function printResultFor(op) {
 // HACK: time travel 5.5 minutes into the past
 console.log("Hacking the date");
 console.log("Before hack = " + Date.now() + " = " + Date());
-sinon.useFakeTimers({ now: Date.now() - 330000, toFake: ["Date"] });
+FakeTimers.install({
+  now: Date.now() - 330000,
+  toFake: ["Date"],
+  shouldAdvanceTime: true,
+});
 console.log("After hack = " + Date.now() + " = " + Date());
 // END HACK
 
