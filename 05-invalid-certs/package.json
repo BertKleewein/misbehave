@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "run": "node run.js",
+    "prettier": "npx prettier --write .",
+    "lint": "npx eslint ."
+  },
+  "dependencies": {
+    "@sinonjs/fake-timers": "^8.0.1",
+    "azure-iot-device": "^1.17.6",
+    "azure-iot-device-amqp": "^1.13.6",
+    "azure-iot-device-http": "^1.13.6",
+    "azure-iot-device-mqtt": "^1.15.6",
+    "azure-iothub": "^1.14.4",
+    "pem": "^1.14.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0"
+  }
+}

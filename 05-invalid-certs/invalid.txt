@@ -1,0 +1,62 @@
+from https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-tls-support#cipher-suites
+
+Cipher suites
+IoT Hubs that are configured to accept only TLS 1.2 will also enforce the use of the following recommended cipher suites:
+
+TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384
+
+
+For IoT Hubs not configured for TLS 1.2 enforcement, TLS 1.2 still works with the following cipher suites:
+
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+
+TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+
+TLS_RSA_WITH_AES_256_GCM_SHA384
+TLS_RSA_WITH_AES_128_GCM_SHA256
+TLS_RSA_WITH_AES_256_CBC_SHA256
+TLS_RSA_WITH_AES_128_CBC_SHA256
+
+TLS_RSA_WITH_AES_256_CBC_SHA
+TLS_RSA_WITH_AES_128_CBC_SHA
+
+TLS_RSA_WITH_3DES_EDE_CBC_SHA
+
+sha1 fails on all
+3des fails 
+
+https://docs.microsoft.com/en-us/azure/iot-hub/tutorial-x509-self-sign
+
+openssl genpkey -out device1.key -algorithm RSA -pkeyopt rsa_keygen_bits:2048
+openssl req -new -key device1.key -out device1.csr
+openssl x509 -req -days 365 -in device1.csr -signkey device1.key -out device1.crt
+
+https://developers.yubico.com/PIV/Guides/Generating_keys_using_OpenSSL.html
+
+Generating a private RSA key
+Generate an RSA private key, of size 2048, and output it to a file named key.pem:
+
+openssl genrsa -out key.pem 2048
+Generating RSA private key, 2048 bit long modulus
+..........+++
+..........................................................................+++
+e is 65537 (0x10001)
+Extract the public key from the key pair, which can be used in a certificate:
+
+openssl rsa -in key.pem -outform PEM -pubout -out public.pem
+writing RSA key
+Generating a private EC key
+Generate an EC private key, of size 256, and output it to a file named key.pem:
+
+openssl ecparam -name prime256v1 -genkey -noout -out key.pem
+Extract the public key from the key pair, which can be used in a certificate:
+
+openssl ec -in key.pem -pubout -out public.pem
+read EC key
+writing EC key
